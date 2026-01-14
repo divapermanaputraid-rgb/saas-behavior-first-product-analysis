@@ -1,0 +1,4 @@
+bucket,min,max
+low,0,3
+medium,4,10
+high,11,99
