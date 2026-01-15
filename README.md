@@ -27,3 +27,16 @@ Bagaimana pengaruh Plan Type dan Penggunaan Promo terhadap tingkat Churn dan Loy
 ### Initial Hypothesis
 * diduga User yang bergabung dengan promo memiliki churn rate lebih tinggi dalam 30 hari pertama dibandingkan user non-promo.
 * diduga ada perbedaan pola retention antara user premium dan lite, yang dapat diamati melalui analisis cohort
+
+
+### Tipe Data pada Staging
+Seluruh kolom numerik di staging menggunakan tipe `NUMERIC`.
+karena sumber data dari file CSV (export Excel) yang memiliki format angka tidak konsisten (contoh: `50000.0`).
+
+### Proses Import Data
+Data mentah (CSV) pada layer staging dimuat secara **manual menggunakan database UI.**
+Project ini tidak berfokus pada otomasi ETL, sehingga script SQL hanya mencakup:
+
+* pembuatan skema dan tabel
+
+* transformasi dan analisis data
