@@ -1,4 +1,4 @@
-user_id,signup_date,acquisition_channel,region,initial_plan,is_churned_flag
+user_id,signup_date,acquisition_channel,region,initial_plan,source_churn_flag
 B0-U001,2026-01-13,organic,ID,Lite,False
 B0-U002,2026-01-12,ads,SEA,Premium,True
 B0-U003,2026-01-12,referral,ID,Lite,False
