@@ -52,3 +52,14 @@ INNER JOIN
 -- - tidak memproses tanpa payment_id
 WHERE
 	rp.payment_id IS NOT NULL
+
+
+
+-- -- - Cek Promo Hantu
+SELECT validated_promo_code, COUNT(*) 
+FROM analytic.fact_payment 
+GROUP BY validated_promo_code;
+
+-- -- - Cek Total Revenue
+SELECT SUM(amount) as total_revenue 
+FROM analytic.fact_payment;
