@@ -51,3 +51,13 @@ INNER JOIN
 	analytic.dim_users u ON rs.user_id = u.user_id
 WHERE
 rs.sub_rank = 1;
+
+
+-- -Cek Jumlah Baris
+SELECT COUNT(*) FROM analytic.fact_subscriptions;
+
+-- Cek Duplikat ID Baru:
+SELECT unique_subscription_id, COUNT(*) 
+FROM analytic.fact_subscriptions 
+GROUP BY unique_subscription_id 
+HAVING COUNT(*) > 1;
