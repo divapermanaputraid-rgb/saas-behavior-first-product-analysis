@@ -49,3 +49,15 @@
 | `amount` | INT | Nominal pembayaran. | `CAST(amount AS INT)`. |
 | `payment_date` | DATE | Tanggal pembayaran dilakukan. | Filter: `payment_date >= signup_date`. |
 | `promo_code` | VARCHAR | Kode promo yang digunakan. | Jika tidak ada di master, labeli `'unknown_promo'`. |
+
+## 4. Tabel: `fct_activity`
+**Deskripsi:** Catatan harian aktivitas user untuk mengukur Engagement (Stickiness).
+**Grain:** 1 Baris = 1 Hari Aktivitas per User.
+**Total Baris:** 5.664 (342 baris "Ghost Activity" dibuang).
+
+| Nama Kolom | Tipe Data | Deskripsi | Logika / Source |
+| :--- | :--- | :--- | :--- |
+| `unique_activity_id`| VARCHAR(32) | Surrogate Key (Unique ID). | `MD5(user_id + activity_date + count)`. |
+| `user_id` | VARCHAR | Referensi ke `dim_users`. | Dari `staging.user_activity_raw`. |
+| `activity_date` | DATE | Tanggal aktivitas terjadi. | Filter: `activity_date >= signup_date`. |
+| `activity_count` | INT | Jumlah interaksi harian user. | `CAST(activity_count AS INT)`. |
