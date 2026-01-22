@@ -61,3 +61,13 @@ FROM analytic.fact_payment p
 LEFT JOIN analytic.fact_activity a
   ON p.user_id = a.user_id
 WHERE a.user_id IS NULL;
+
+-- The Paradox
+SELECT 
+    is_churned,
+    COUNT(user_id) AS total_user,
+    ROUND(AVG(total_interactions), 2) AS avg_interactions,
+    ROUND(AVG(tenure_days), 2) AS avg_tenure
+FROM 
+    analytic.user_behavior_summary
+GROUP BY 1;
