@@ -97,3 +97,12 @@ SELECT COUNT(*) AS freemium_users
 FROM analytic.user_behavior_summary
 WHERE total_revenue_spent = 0;
 
+SELECT
+	is_churned,
+	COUNT(user_id) AS total_user,
+	ROUND(AVG(tenure_days), 2) AS avg_tenure_days,
+	ROUND(AVG(total_interactions), 2) AS avg_interactions
+FROM
+	analytic.user_behavior_summary
+GROUP BY
+	1;
