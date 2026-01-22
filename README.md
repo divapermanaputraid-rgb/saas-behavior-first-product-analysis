@@ -1,74 +1,46 @@
-## saas-behavior-first-product-analysis
-### Context
-* produk: SaaS, subscription (simulasi)
-* model bisnis: Freemium/Tiered Subscription (Lite / Premium)
-* User Activity: Merepresentasikan jumlah interaksi user di dalam aplikasi per hari.
+# SaaS Behavior & Subscription Analysis (Product Case Study)
 
-### Analysis Scope & Constraints
-* data yang tersedia
-    * users
-    * subscriptions
-    * promotions 
-    * payments
-    * user_activity
-* Data Yang Tidak Tersedia **NO COST DATA**
-* Dengan data yang ada, analisis difokuskan pada user behavior dan proxy value. Analisis tidak mencakup ***net revenue***/ ***profitability***
+## 1. Context & Business Model
+* **Produk:** Simulasi aplikasi SaaS berbasis langganan.
+* **Model Bisnis:** Freemium/Tiered Subscription (Lite & Premium).
+* **User Activity:** Representasi jumlah interaksi harian pengguna di dalam aplikasi (Engagement).
+* **Scope:** Analisis difokuskan pada perilaku pengguna (*user behavior*) dan retensi. Proyek ini tidak mencakup analisis profitabilitas karena ketiadaan data biaya (*cost data*).
 
-### Business Question
-Bagaimana pengaruh Plan Type dan Penggunaan Promo terhadap tingkat Churn dan Loyalitas (Retention) pengguna?
+## 2. Business Questions
+1. Bagaimana pengaruh jenis paket (Plan Type) dan penggunaan promo terhadap tingkat *churn*?
+2. Apakah tingkat aktivitas pengguna (Engagement) berbanding lurus dengan loyalitas (Retention)?
+3. Di mana jendela kritis (*critical window*) pengguna memutuskan untuk berhenti berlangganan?
 
-### Data Dictionary
-* users :Profil user (signup, channel, region).
-* subscriptions: Status langganan (active, canceled) dan harga
-* payments: Rekam jejak transaksi dan penggunaan promo code.
-* user_activity: Log harian aktivitas user (activity_count).
-* promotion: Detail promo dan diskon.
+## 3. Data Architecture & ETL Strategy
+Proyek ini menggunakan struktur tiga lapis untuk menjamin integritas data:
+1.  **Staging Layer:** Data mentah dimuat dengan tipe data `NUMERIC` untuk menangani ketidakistirahatan format ekspor CSV/Excel.
+2.  **Analytic Layer:** Proses pembersihan besar-besaran, termasuk:
+    * **Type Casting:** Mengubah `NUMERIC` menjadi `INT` untuk efisiensi komputasi.
+    * **Surrogate Key Generation:** Penggunaan `MD5(user_id + business_key)` untuk menangani ID yang tidak unik secara global (`subscription_id` & `payment_id` yang duplikat).
+    * **Time-Series Validation:** Menghapus data "Ghost Activity" (aktivitas yang tercatat sebelum tanggal pendaftaran).
+3.  **Mart Layer:** Tabel `user_behavior_summary` sebagai *Single Source of Truth* untuk pelaporan.
 
-### Initial Hypothesis
-* diduga User yang bergabung dengan promo memiliki churn rate lebih tinggi dalam 30 hari pertama dibandingkan user non-promo.
-* diduga ada perbedaan pola retention antara user premium dan lite, yang dapat diamati melalui analisis cohort
+## 4. Temuan Kunci & Audit Data (Critical Findings)
 
+### A. Resolved (Analytically): The Activity Paradox
+*Catatan: Resolusi ini berlaku dalam konteks data yang telah dibersihkan sesuai strategi yang didefinisikan, dan tidak mengklaim kebenaran absolut di luar dataset simulasi ini.*
 
-### Tipe Data pada Staging
-Seluruh kolom numerik di staging menggunakan tipe `NUMERIC`.
-karena sumber data dari file CSV (export Excel) yang memiliki format angka tidak konsisten (contoh: `50000.0`).
+* **Temuan Awal:** Analisis awal menunjukkan paradoks di mana pengguna *churn* terlihat lebih aktif daripada pengguna tetap.
+* **Hasil Audit Teknis:** Ditemukan kesalahan pelabelan (*labeling mismatch*) pada tahap awal transformasi. Setelah dilakukan audit pada layer analitik, pola perilaku kembali logis:
+    * **Active Users (270 user):** Rata-rata **70.14** interaksi per hari.
+    * **Churned Users (130 user):** Rata-rata **51.05** interaksi per hari.
+* **Kesimpulan:** Pengguna yang bertahan terbukti **37% lebih aktif** dibandingkan pengguna yang berhenti.
 
-### Proses Import Data
-Data mentah (CSV) pada layer staging dimuat secara **manual menggunakan database UI.**
-Project ini tidak berfokus pada otomasi ETL, sehingga script SQL hanya mencakup:
+### B. Business Logic Anomalies (Current Investigation)
+Ditemukan dua anomali serius yang berdampak pada operasional bisnis:
+1.  **Subscription Sync Issue (69 User):** Terdapat 69 pengguna yang secara profil berstatus `is_churned = TRUE`, namun sistem billing masih mencatat langganan mereka sebagai `active`. Ini merupakan risiko *chargeback* dan ketidaksinkronan data keuangan.
+2.  **Ghost Revenue (12 User):** Terdapat 12 pengguna yang tetap membayar secara rutin namun memiliki **interaksi nol (0)** di aplikasi. Kelompok ini diidentifikasi sebagai pengguna pasif yang berisiko tinggi melakukan *churn* masif di masa mendatang.
 
-* pembuatan skema dan tabel
+### C. Critical Tenure Window
+* Rata-rata umur pengguna (*tenure*) berada di angka **14-15 hari**.
+* **Insight:** Keputusan kritis pengguna terjadi di minggu kedua. Strategi *nurturing* dan intervensi produk harus dilakukan **sebelum hari ke-10** untuk mencegah *drop-off* pada jendela kritis ini.
 
-* transformasi dan analisis data
-
-##  Temuan Kunci & Anomali Data
-
-### Anomali Struktur ID (Critical Data Issue)
-
-Pada proses audit data mentah (staging), ditemukan anomali struktural serius:
-
-- `subscription_id` dan `payment_id` tidak bersifat unik secara global.
-- ID yang sama (contoh: `S001`, `P001`) muncul ratusan kali pada user yang berbeda.
-- Hal ini mengindikasikan bahwa ID tersebut hanyalah penomoran lokal atau placeholder, bukan primary key sebenarnya.
-
-**Implikasi Analisis:**
-- JOIN antar tabel tidak dapat dilakukan hanya berdasarkan `subscription_id` atau `payment_id`.
-- JOIN harus selalu dikombinasikan dengan `user_id`, atau menggunakan surrogate key.
-- Tanpa penanganan ini, agregasi (MRR, churn, retention) akan mengalami data explosion dan menghasilkan angka yang menyesatkan.
-
-**Keputusan Analitis:**
-- Pada layer analitik, dibuat *surrogate key* menggunakan kombinasi atribut (`user_id`, `subscription_id`, `start_date`) untuk menjamin keunikan baris.
-- Audit dan cleaning dilakukan sebelum membangun data mart agar validitas analisis perilaku tetap terjaga.
-
-**Detail strategi pembersihan data terdokumentasi pada: `docs/cleaning_strategy.md`.**
-
-
-
-##  Preliminary Observations (Under Investigation)
-### Status Proyek Saat Ini
-> Seluruh temuan berikut bersifat **preliminary** dan dihasilkan sebelum proses pembersihan data final.
-> Insight ini digunakan sebagai hipotesis investigasi, bukan kesimpulan bisnis final.
-
-- **Activity Paradox:** Ditemukan bahwa pengguna yang berhenti (*churn*) memiliki rata-rata interaksi (70.1) yang lebih tinggi dibandingkan pengguna aktif (51.0). Proyek ini sedang dalam tahap investigasi mendalam untuk menentukan apakah hal ini disebabkan oleh gesekan pada produk (*product friction*) atau perilaku penyelesaian tugas (*task completion*).
-- **Critical Tenure Window:** Mayoritas pengguna memutuskan untuk bertahan atau pergi dalam rentang waktu **14-15 hari** pertama.
-    * **Insight:** Keputusan user terjadi di minggu kedua. Intervensi produk atau strategi *nurturing* wajib masuk **sebelum hari ke-10** untuk mencegah *drop-off* massal di jendela kritis ini.
+## 5. Dokumentasi Pendukung
+* **Cleaning Strategy:** `docs/cleaning_strategy.md`
+* **Data Dictionary:** `docs/data_dictionary.md`
+* **Investigation Notes:** `docs/investigation_notes.md`
