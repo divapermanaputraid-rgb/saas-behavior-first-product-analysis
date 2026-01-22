@@ -72,8 +72,8 @@
 **Grain:** 1 Baris = 1 User.  
 **Total Baris:** 400.
 
-| Nama Kolom | Tipe Data | Deskripsi | Logika / Source |
-| :--- | :--- | :--- | :--- |
+| Nama Kolom | Tipe Data | Deskripsi | Logika / Source | Catatan Penting 
+| :--- | :--- | :--- | :--- | :--- |
 | `user_id` | VARCHAR | ID unik pengguna. | `dim_users`. |
 | `signup_date` | DATE | Tanggal pendaftaran. | `dim_users`. |
 | `region` | VARCHAR | Wilayah asal user. | `dim_users`. |
@@ -81,10 +81,10 @@
 | `is_promo_user` | BOOLEAN | Indikator user promo. | `dim_users`. |
 | `latest_plan_type` | VARCHAR | Paket langganan terakhir. | `COALESCE(fact_subscriptions.plan_type, 'no plan')`. |
 | `subscription_status`| VARCHAR | Status langganan terakhir. | `COALESCE(fact_subscriptions.status, 'no subs')`. |
-| `is_churned` | BOOLEAN | Status apakah user sudah churn. | `dim_users`. |
+| `is_churned` | BOOLEAN | Status apakah user sudah churn. | `dim_users`. | Perhatian: Menunjukkan anomali korelasi positif dengan total_interactions. Lihat docs/investigation_notes.md
 | `total_revenue_spent`| INT | Total pendapatan dari user. | `SUM(fact_payments.amount)`. |
 | `avg_payment_value` | INT | Rata-rata nilai transaksi. | `AVG(fact_payments.amount)`. |
-| `total_interactions` | INT | Total volume aktivitas. | `SUM(fact_activity.activity_count)`. |
+| `total_interactions` | INT | Total volume aktivitas. | `SUM(fact_activity.activity_count)`. | Perhatian: Angka tinggi pada pengguna churn menunjukkan potensi masalah pada retensi atau kegunaan produk.
 | `active_days_count` | INT | Jumlah hari aktif beraktivitas. | `COUNT(fact_activity.activity_date)`. |
 | `last_active_date` | DATE | Tanggal terakhir beraktivitas. | `MAX(fact_activity.activity_date)`. |
 | `tenure_days` | INT | Durasi loyalitas (hari sejak signup ke aktivitas terakhir). | `last_active_date - signup_date`. |
