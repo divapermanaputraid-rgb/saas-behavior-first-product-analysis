@@ -40,3 +40,13 @@ Project ini tidak berfokus pada otomasi ETL, sehingga script SQL hanya mencakup:
 * pembuatan skema dan tabel
 
 * transformasi dan analisis data
+
+##  Temuan Kunci & Anomali Data
+
+Analisis pada layer analitik mengungkap dua temuan kritikal yang mengubah cara kita memandang perilaku pengguna:
+
+
+## 💡 Key Findings & Anomalies
+- **Activity Paradox:** Ditemukan bahwa pengguna yang berhenti (*churn*) memiliki rata-rata interaksi (70.1) yang lebih tinggi dibandingkan pengguna aktif (51.0). Proyek ini sedang dalam tahap investigasi mendalam untuk menentukan apakah hal ini disebabkan oleh gesekan pada produk (*product friction*) atau perilaku penyelesaian tugas (*task completion*).
+- **Critical Tenure Window:** Mayoritas pengguna memutuskan untuk bertahan atau pergi dalam rentang waktu **14-15 hari** pertama.
+* **Insight:** Keputusan user terjadi di minggu kedua. Intervensi produk atau strategi *nurturing* wajib masuk **sebelum hari ke-10** untuk mencegah *drop-off* massal di jendela kritis ini.
