@@ -5,8 +5,9 @@
 
 
 -- 1. Pembuatan Tabel
+DROP TABLE IF EXISTS analytic.user_behavior_sumary;
 -- - 1.1 Agregasi Pembayaran
-CREATE TABLE analytic.user_behavior_sumary AS
+CREATE TABLE analytic.user_behavior_summary AS
 WITH payment_summary AS (
 	SELECT
 		user_id,
@@ -52,12 +53,12 @@ SELECT
 	u.is_promo_user,
 
 	-- b. STATUS
-	COALESCE(s.plan_type, 'no plan') AS lastest_paln_type,
+	COALESCE(s.plan_type, 'no plan') AS lastest_plan_type,
 	COALESCE(s.subscription_status, 'no subs') AS subscription_status,
 	u.is_churned,
 
 	-- c. MONETARY
-	COALESCE(p.total_revenue_spent, 0) AS tatal_revenue_spent,
+	COALESCE(p.total_revenue_spent, 0) AS total_revenue_spent,
 	COALESCE(p.avg_payment_value, 0) AS avg_payment_value,
 
 	-- d.ENGAGMENT
@@ -85,13 +86,14 @@ LEFT JOIN
 -- FINAL CHECK
 -- - Cek Konsistensi Revenue
 SELECT
-	(SELECT SUM(tatal_revenue_spent) FROM analytic.user_behavior_sumary) AS summary_revenue,
+	(SELECT SUM(total_revenue_spent) FROM analytic.user_behavior_summary) AS summary_revenue,
 	(SELECT SUM(amount) FROM analytic.fact_payment) AS original_revenue;
 
 -- - Cek Kelengkapan User
-SELECT COUNT(*) FROM analytic.user_behavior_sumary;
+SELECT COUNT(*) FROM analytic.user_behavior_summary;
 
 -- Cek User (Zero Value)
 SELECT COUNT(*) AS freemium_users
-FROM analytic.user_behavior_sumary
-WHERE tatal_revenue_spent = 0;
+FROM analytic.user_behavior_summary
+WHERE total_revenue_spent = 0;
+
