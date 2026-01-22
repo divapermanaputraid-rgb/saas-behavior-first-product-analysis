@@ -60,11 +60,14 @@ Pada proses audit data mentah (staging), ditemukan anomali struktural serius:
 - Pada layer analitik, dibuat *surrogate key* menggunakan kombinasi atribut (`user_id`, `subscription_id`, `start_date`) untuk menjamin keunikan baris.
 - Audit dan cleaning dilakukan sebelum membangun data mart agar validitas analisis perilaku tetap terjaga.
 
+**Detail strategi pembersihan data terdokumentasi pada: `docs/cleaning_strategy.md`.**
 
-##  Key Findings & Anomalies
+
+
+##  Preliminary Observations (Under Investigation)
 ### Status Proyek Saat Ini
-Analisis berada pada tahap **Data Audit & Cleaning Strategy**.
-Pembuatan tabel mart dan analisis lanjutan ditunda hingga seluruh anomaly data diselesaikan dan strategi pembersihan disepakati.
+> Seluruh temuan berikut bersifat **preliminary** dan dihasilkan sebelum proses pembersihan data final.
+> Insight ini digunakan sebagai hipotesis investigasi, bukan kesimpulan bisnis final.
 
 - **Activity Paradox:** Ditemukan bahwa pengguna yang berhenti (*churn*) memiliki rata-rata interaksi (70.1) yang lebih tinggi dibandingkan pengguna aktif (51.0). Proyek ini sedang dalam tahap investigasi mendalam untuk menentukan apakah hal ini disebabkan oleh gesekan pada produk (*product friction*) atau perilaku penyelesaian tugas (*task completion*).
 - **Critical Tenure Window:** Mayoritas pengguna memutuskan untuk bertahan atau pergi dalam rentang waktu **14-15 hari** pertama.
