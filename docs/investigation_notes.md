@@ -56,3 +56,7 @@ Distribusi 69 pengguna yang tidak konsisten:
 1. **Rekonsiliasi Billing:** Segera sinkronkan status 69 user bermasalah untuk menghindari kerugian hukum.
 2. **Audit Pipeline Ads:** Melakukan pengecekan pada alur data dari platform iklan untuk menemukan penyebab kegagalan update status user.
 3. **Activation Campaign:** Menargetkan 12 "Ghost Users" dengan kampanye aktivasi untuk mendorong penggunaan aplikasi sebelum mereka membatalkan langganan.
+
+## 9. Kesimpulan Hipotesis Final
+- **Promo Effectiveness:** Konfirmasi bahwa user promo memiliki churn rate 11,5% lebih tinggi. Strategi promo perlu diubah dari "Diskon Harga" menjadi "Value-Added Features".
+- **Plan Type Paradox:** Ditemukan bahwa status Premium tidak menjamin retensi. User Premium memiliki churn rate lebih tinggi dan engagement lebih rendah dibandingkan user Lite. Hal ini mengindikasikan adanya masalah pada proposisi nilai (Value Proposition) paket Premium.
