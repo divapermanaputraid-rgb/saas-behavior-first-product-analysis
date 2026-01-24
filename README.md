@@ -103,15 +103,37 @@ Keputusan untuk bertahan atau berhenti cenderung terjadi sebelum minggu kedua. D
 
 Temuan ini memberikan dasar analitis untuk mengevaluasi efektivitas onboarding, edukasi fitur, dan pengalaman awal pengguna tanpa mengasumsikan solusi implementatif tertentu.
 
-### 6. The Business Verdict: Cross-Segment Insights
-Analisis silang (cross-segment) mengungkapkan titik kegagalan utama dalam strategi pertumbuhan:
+## 6. Cross-Segment Insights & Strategic Perspective
 
-- **Worst Performing Segment:** **Premium + Promo** dengan Churn Rate tertinggi sebesar **45.00%**. 
-- **Gold Segment:** **Lite + Non-Promo** dengan Churn Rate terendah sebesar **25.56%**.
+Analisis silang antara jenis paket dan penggunaan promo mengungkap perbedaan performa yang signifikan antar segmen.
 
-**Kesimpulan Strategis:**
-Strategi akuisisi Premium melalui jalur promo terbukti **tidak berkelanjutan**. Tingginya churn pada segmen ini menunjukkan bahwa diskon pada paket mahal hanya menarik pengguna oportunis. Perusahaan direkomendasikan untuk menghentikan promo pada paket Premium dan fokus memperkuat *value proposition* organik pada paket Lite untuk kemudian melakukan *upselling* secara bertahap tanpa bergantung pada diskon besar.
+### Segment Performance Overview
+- **Worst Performing Segment:**  
+  **Premium + Promo**  
+  Churn Rate: **45,00%**
 
+- **Most Stable Segment:**  
+  **Lite + Non-Promo**  
+  Churn Rate: **25,56%**
+
+### Interpretasi Strategis:
+Kombinasi harga tinggi dan diskon agresif cenderung menarik pengguna dengan komitmen rendah. Sebaliknya, segmen Lite non-promo menunjukkan kestabilan perilaku dan retensi yang lebih baik, menjadikannya fondasi pertumbuhan yang relatif lebih sehat secara perilaku.
+
+### Strategic Consideration:
+- Data ini menunjukkan potensi risiko dalam strategi akuisisi Premium berbasis promo.
+- Pendekatan pertumbuhan yang berfokus pada Lite sebagai entry point, diikuti *organic upsell* berbasis value, muncul sebagai pola yang lebih konsisten dari sisi perilaku pengguna.
+
+---
+
+## Disclaimer & Analytical Scope
+
+Analisis ini **tidak mencakup profitabilitas, margin, atau net revenue**, karena:
+- Tidak tersedia data biaya (COGS, CAC, operational cost).
+- Evaluasi difokuskan pada **user behavior, churn, dan retention patterns**, bukan keputusan finansial akhir.
+
+Oleh karena itu, temuan bahwa segmen Lite menunjukkan performa perilaku yang lebih baik **tidak serta-merta menyimpulkan bahwa Lite lebih menguntungkan secara bisnis**, melainkan lebih stabil dari perspektif retensi dan engagement pengguna.
+
+Seluruh rekomendasi diposisikan sebagai **input analitis** untuk diskusi strategis lanjutan, bukan sebagai keputusan final bisnis.
 ---
 
 ## 7. Dokumentasi Pendukung
