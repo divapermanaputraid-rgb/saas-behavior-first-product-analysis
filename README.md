@@ -103,9 +103,18 @@ Keputusan untuk bertahan atau berhenti cenderung terjadi sebelum minggu kedua. D
 
 Temuan ini memberikan dasar analitis untuk mengevaluasi efektivitas onboarding, edukasi fitur, dan pengalaman awal pengguna tanpa mengasumsikan solusi implementatif tertentu.
 
+### 6. The Business Verdict: Cross-Segment Insights
+Analisis silang (cross-segment) mengungkapkan titik kegagalan utama dalam strategi pertumbuhan:
+
+- **Worst Performing Segment:** **Premium + Promo** dengan Churn Rate tertinggi sebesar **45.00%**. 
+- **Gold Segment:** **Lite + Non-Promo** dengan Churn Rate terendah sebesar **25.56%**.
+
+**Kesimpulan Strategis:**
+Strategi akuisisi Premium melalui jalur promo terbukti **tidak berkelanjutan**. Tingginya churn pada segmen ini menunjukkan bahwa diskon pada paket mahal hanya menarik pengguna oportunis. Perusahaan direkomendasikan untuk menghentikan promo pada paket Premium dan fokus memperkuat *value proposition* organik pada paket Lite untuk kemudian melakukan *upselling* secara bertahap tanpa bergantung pada diskon besar.
+
 ---
 
-## 6. Dokumentasi Pendukung
+## 7. Dokumentasi Pendukung
 * **Cleaning Strategy:** `docs/cleaning_strategy.md`
 * **Data Dictionary:** `docs/data_dictionary.md`
 * **Investigation Notes:** `docs/investigation_notes.md`
