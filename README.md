@@ -131,7 +131,7 @@ Analisis ini **tidak mencakup profitabilitas, margin, atau net revenue**, karena
 - Tidak tersedia data biaya (COGS, CAC, operational cost).
 - Evaluasi difokuskan pada **user behavior, churn, dan retention patterns**, bukan keputusan finansial akhir.
 
-Oleh karena itu, temuan bahwa segmen Lite menunjukkan performa perilaku yang lebih baik **tidak serta-merta menyimpulkan bahwa Lite lebih menguntungkan secara bisnis**, melainkan lebih stabil dari perspektif retensi dan engagement pengguna.
+Oleh karena itu, temuan bahwa segmen Lite menunjukkan performa perilaku yang lebih baik **tidak  menyimpulkan bahwa Lite lebih menguntungkan secara bisnis**, melainkan lebih stabil dari perspektif retensi dan engagement pengguna.
 
 Seluruh rekomendasi diposisikan sebagai **input analitis** untuk diskusi strategis lanjutan, bukan sebagai keputusan final bisnis.
 ---
