@@ -1,4 +1,8 @@
-# SaaS Behavior & Subscription Analysis (Product Case Study)
+# SaaS Subscription & Business Logic Audit: Identifying 67M IDR Revenue Risk (Product Case Study)
+
+![alt text](image.png)
+
+## Executive Summary: Fokus pada angka kritis: Total Revenue 344.5M , Revenue at Risk 67.2M , dan Churn Rate Premium-Promo 45%.
 
 ## 1. Context & Business Model
 * **Produk:** Simulasi aplikasi SaaS berbasis langganan.
@@ -140,3 +144,8 @@ Seluruh rekomendasi diposisikan sebagai **input analitis** untuk diskusi strateg
 * **Cleaning Strategy:** `docs/cleaning_strategy.md`
 * **Data Dictionary:** `docs/data_dictionary.md`
 * **Investigation Notes:** `docs/investigation_notes.md`
+
+## 8. Project Retrospective & Learning
+- **SQL Mastery:** Berhasil mengimplementasikan 3-layer architecture untuk menjaga kebersihan data.
+- **Critical Thinking:** Belajar untuk tidak langsung percaya pada data mentah (Paradoks Aktivitas) dan melakukan investigasi mandiri.
+- **Business Impact:** Memahami bahwa data analisis tidak hanya tentang angka, tapi tentang mengidentifikasi risiko finansial (Audit 67M).
